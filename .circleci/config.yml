@@ -34,16 +34,16 @@ jobs:
           path: ~/artifacts
           destination: node-build
   deploy:
-      executor: node/default
-      steps:
-        - checkout
-        - node/install-packages:
-            pkg-manager: npm
-        - run:
-            command: npm run build
-        - run:
-            name: Deploy Netlify
-            command: npx netlify deploy --prod --dir=build
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm run build
+      - run:
+          name: Deploy Netlify
+          command: npx netlify deploy --prod --dir=build
 workflows:
   build-and-test:
     jobs:
@@ -54,7 +54,7 @@ workflows:
       - deploy:
           requires:
             - build-node
-        filters:
-          branches:
-          only:
+          filters:
+           branches:
+            only:
             - main
